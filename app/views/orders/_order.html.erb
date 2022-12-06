@@ -1,0 +1,54 @@
+<h3>
+  <%= link_to ( gravatar_for User.find_by(id:order.user_id), size: 100 ) , User.find_by(id:order.user_id) %>
+  Order ID
+  <%= order.id %>
+  , User ID
+  <%= order.user_id %></h3>
+<p>
+  <strong>Name:</strong>
+  <%= User.find_by(id:order.user_id).name %>
+
+  ,
+  <strong>Email:</strong>
+  <%= User.find_by(id:order.user_id).email %>
+
+  ,
+ 
+  </p>
+<p>
+  <strong>
+    Description</strong>
+  <div class="well well-sm"><%= order.description %></div>
+</p>
+<p>
+  <h3>Total price:
+    <%= number_to_currency(order.sub_total) %></h3>
+</p>
+
+<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#<%= order.id %>">Show Items</button>
+<div id="<%= order.id %>" class="collapse">
+  <ul class="users">
+    <% order.line_items.each do |item| %>
+      <%= item.quantity %>
+      x
+      <%= render 'shared/order_product' , product:item.product%>
+    <% end %>
+    <br/>
+  </ul>
+</div>
+
+<!-- Only Admin is allowed to modify Orders -->
+<% if logger? && current_user.admin? %>
+  <%= link_to edit_order_path(order) do %>
+  <i class="glyphicon glyphicon-pencil" style="color:darkgray"></i>
+  Edit
+<% end %>
+or
+<!-- Basket -->
+<%= link_to order, method: :delete, data: { confirm: 'Are you sure?' } do %>
+<i class="glyphicon glyphicon-fire" style="color:firebrick"></i>
+Destroy
+<% end %>
+<% end %>
+
+<hr/>

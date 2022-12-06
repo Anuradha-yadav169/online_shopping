@@ -1,0 +1,33 @@
+<div class="center jumbotron">
+<%= form_tag(root_url, :method => "get", id: "search-form") do %>
+<div class="input-group" id="adv-search">
+  <%= text_field_tag :search, params[:search], placeholder: "Search..." , class: "form-control" %>
+  <div class="input-group-btn">
+    <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+    <span class="glyphicon glyphicon-search"></span>
+  <% end %>
+  </div>
+</div>
+<% end %>
+
+<% if logger? %>
+<%= link_to new_product_path , class: "btn btn-success" , style: "margin-top:15px;" do %>
+<i class="glyphicon glyphicon-plus" style="color:black;"></i>
+Create New Product (Admin)
+<%end %>
+<% end %>
+</div>
+<ul class="users">
+<% if @products.present? %>
+<%= render @products %>
+</ul>
+<% else %>
+  <p>
+  <br/><br/><hr/>
+    There are no products containing the term(s) => [
+    <strong><%= params[:search] %></strong>
+    ] .
+
+  </p>
+<% end %>
+<br>

@@ -1,0 +1,9 @@
+<% provide(:title,("Products")) %>
+
+  <p id="notice"><%= notice %></p>
+
+  <div class="center jumbotron">
+    <strong>Products ( <%= @products.count %> )</strong>
+  </div>
+
+  <%= render 'shared/products' %>

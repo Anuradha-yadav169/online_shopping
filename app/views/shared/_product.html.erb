@@ -1,0 +1,28 @@
+<li>
+<strong>
+  Name :
+</strong>
+<%= product.name %>
+,<strong>
+  Description :
+</strong>
+<%= product.description %>
+<strong>
+  Price :
+</strong>
+<%= product.price %> $
+<%= product.images %>
+
+
+
+<p>
+
+<!-- Only Admin is allowed to modify products -->
+<% if logger? && current_user.admin? %>
+  <%= link_to 'Edit', edit_product_path(product) %>
+  or
+  <%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
+
+</p>
+</li>
